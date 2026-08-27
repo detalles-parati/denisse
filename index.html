@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#090a12" />
+  <title>Para Denisse ✨</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --ink: #090a12;
+      --wine: #8f143d;
+      --rose: #ef6f98;
+      --blush: #ffd8e4;
+      --gold: #d9b46e;
+      --ivory: #fff9f3;
+      --paper: #fffaf5;
+      --muted: #c9c3cd;
+      --line: rgba(255, 255, 255, .12);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      overflow-x: hidden;
+      color: var(--ivory);
+      font-family: "Poppins", sans-serif;
+      background: var(--ink);
+    }
+
+    .ambient, .stars, .grain { position: fixed; inset: 0; pointer-events: none; }
+
+    .ambient {
+      z-index: -3;
+      background:
+        radial-gradient(circle at 12% 5%, rgba(143, 20, 61, .47), transparent 28%),
+        radial-gradient(circle at 88% 13%, rgba(71, 42, 113, .39), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(217, 180, 110, .13), transparent 37%),
+        linear-gradient(145deg, #080911 0%, #10111d 49%, #080911 100%);
+      background-size: 130% 130%;
+      animation: ambientMove 14s ease-in-out infinite alternate;
+    }
+
+    .stars { z-index: -2; overflow: hidden; }
+    .star { position: absolute; display: block; width: var(--size); height: var(--size); border-radius: 50%; opacity: 0; background: #fff; box-shadow: 0 0 12px rgba(255, 255, 255, .9); animation: drift var(--duration) linear infinite; animation-delay: var(--delay); }
+    .grain { z-index: 20; opacity: .06; mix-blend-mode: soft-light; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E"); }
+
+    @keyframes ambientMove { from { background-position: 0% 0%; filter: saturate(1); } to { background-position: 100% 100%; filter: saturate(1.18); } }
+    @keyframes drift { 0% { transform: translate3d(0, 105vh, 0) scale(.7); opacity: 0; } 10%, 76% { opacity: var(--opacity); } 100% { transform: translate3d(var(--drift), -12vh, 0) scale(1.1); opacity: 0; } }
+
+    .intro { display: grid; min-height: 100svh; place-items: center; padding: 30px 20px; text-align: center; transition: opacity .7s ease, transform .7s ease; }
+    .intro.is-leaving { opacity: 0; pointer-events: none; transform: scale(1.03); }
+    .intro-card { width: min(650px, 100%); }
+    .eyebrow { margin: 0 0 14px; color: var(--gold); font-size: .7rem; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; }
+    h1, h2, h3, p { margin-top: 0; }
+    .intro h1, .section-title { font-family: "Playfair Display", Georgia, serif; font-weight: 700; letter-spacing: -.03em; }
+    .intro h1 { max-width: 600px; margin: 0 auto; font-size: clamp(2.35rem, 8vw, 4.7rem); line-height: 1.05; text-wrap: balance; text-shadow: 0 8px 40px rgba(239, 111, 152, .18); }
+    .intro h1 span { color: var(--rose); }
+    .gift-wrap { margin: 42px auto 0; }
+    .gift-emoji { display: inline-block; font-size: clamp(7.5rem, 25vw, 11rem); line-height: 1; filter: drop-shadow(0 20px 20px rgba(0, 0, 0, .38)); transform-origin: 50% 100%; }
+    .joggle { animation: joggle 4.5s ease-in-out infinite; }
+    .gift-emoji.claimed { opacity: 0; animation: none; transform: scale(1.72) rotate(12deg); transition: transform .5s cubic-bezier(.22, .61, .36, 1), opacity .5s ease; }
+    @keyframes joggle { 0%, 33%, 100% { transform: rotate(0); } 3.33% { transform: rotate(-10deg); } 6.67% { transform: rotate(12deg); } 10% { transform: rotate(-10deg); } 13.33% { transform: rotate(9deg); } 16.67% { transform: rotate(0); } }
+    .open-btn { display: inline-flex; align-items: center; justify-content: center; margin-top: 24px; padding: 14px 30px; border: 0; border-radius: 999px; color: #fff; cursor: pointer; font-family: "Poppins", sans-serif; font-size: .95rem; font-weight: 600; background: linear-gradient(135deg, #b82755, #e8658c); box-shadow: 0 12px 30px rgba(184, 39, 85, .42), inset 0 1px rgba(255, 255, 255, .25); transition: transform .2s ease, filter .2s ease; }
+    .open-btn:hover { filter: brightness(1.1); transform: translateY(-3px); }
+    .open-btn:active { transform: translateY(0); }
+    .claimed-message { min-height: 42px; margin: 28px 0 0; color: var(--blush); opacity: 0; font-family: "Playfair Display", Georgia, serif; font-size: clamp(1.4rem, 5vw, 2rem); transform: translateY(10px); transition: opacity .5s ease, transform .5s ease; }
+    .claimed-message.visible { opacity: 1; transform: none; }
+    .hidden { display: none !important; }
+
+    main { width: min(760px, 100%); margin: 0 auto; padding: 54px 20px 90px; opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
+    main.visible { opacity: 1; transform: none; }
+    .hero-note { margin-bottom: 26px; text-align: center; }
+    .hero-note .name { margin: 0; color: var(--blush); font-family: "Playfair Display", Georgia, serif; font-size: clamp(2.2rem, 8vw, 3.8rem); }
+    .hero-note .from { margin: 7px 0 0; color: var(--muted); font-size: .9rem; }
+    .letter, .friendship-card { position: relative; padding: clamp(22px, 5vw, 38px); border: 1px solid var(--line); border-radius: 24px; background: linear-gradient(145deg, rgba(29, 31, 44, .9), rgba(18, 18, 29, .83)); box-shadow: 0 24px 55px rgba(0, 0, 0, .27); backdrop-filter: blur(13px); }
+    .letter::before, .friendship-card::before { content: ""; position: absolute; inset: 0; padding: 1px; border-radius: inherit; pointer-events: none; background: linear-gradient(135deg, rgba(239, 111, 152, .47), transparent 33%, rgba(217, 180, 110, .26)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+    .letter p { margin-bottom: 1.3em; color: #f5eff2; font-size: clamp(.95rem, 2.3vw, 1.05rem); line-height: 1.88; }
+    .letter p:last-child { margin-bottom: 0; }
+    .section-title { margin: 64px 0 21px; color: var(--blush); font-size: clamp(2rem, 6vw, 3rem); text-align: center; text-shadow: 0 4px 25px rgba(239, 111, 152, .2); }
+
+    /* Carrusel */
+    .carousel { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 24px; background: #171827; box-shadow: 0 24px 54px rgba(0, 0, 0, .34); }
+    .carousel-track { display: flex; align-items: stretch; transition: transform .75s cubic-bezier(.22, .61, .36, 1); }
+    .slide { position: relative; display: flex; min-width: 100%; min-height: 330px; align-items: center; justify-content: center; overflow: hidden; background: #090a12; }
+
+    /* Las fotos se recortan elegantemente para llenar el carrusel */
+    .slide img { display: block; width: 100%; height: 100%; min-height: 330px; object-fit: cover; background: #090a12; }
+
+    /* Los videos mantienen su proporción original y no son agrandados con object-fit: cover */
+    .slide.video-slide { background: #05060b; }
+    .slide video { display: block; width: auto; height: auto; max-width: 100%; max-height: 72vh; object-fit: contain; background: #05060b; }
+    .video-frame { position: relative; display: grid; max-width: 100%; max-height: 72vh; place-items: center; }
+
+    .slide::after { content: ""; position: absolute; z-index: 1; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 48%, rgba(4, 4, 10, .62)); }
+    .video-slide::after { background: linear-gradient(180deg, rgba(4, 4, 10, .12), rgba(4, 4, 10, .68)); }
+
+    .video-play-overlay {
+      position: absolute;
+      z-index: 3;
+      top: 50%;
+      left: 50%;
+      display: grid;
+      width: 74px;
+      height: 74px;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, .5);
+      border-radius: 50%;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.9rem;
+      line-height: 1;
+      background: rgba(143, 20, 61, .82);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, .42), 0 0 0 0 rgba(239, 111, 152, .52);
+      transform: translate(-50%, -50%);
+      transition: opacity .25s ease, transform .25s ease, background .25s ease;
+    }
+
+    .video-play-overlay:hover { background: rgba(184, 39, 85, .98); transform: translate(-50%, -50%) scale(1.08); }
+    .video-play-overlay:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+    .video-play-overlay.is-hidden { opacity: 0; pointer-events: none; transform: translate(-50%, -50%) scale(.85); }
+    .video-play-overlay::after { content: ""; position: absolute; inset: -8px; border: 1px solid rgba(239, 111, 152, .38); border-radius: 50%; animation: videoPulse 1.8s infinite; }
+
+    @keyframes videoPulse { 0%, 100% { transform: scale(.9); opacity: .7; } 50% { transform: scale(1.15); opacity: 0; } }
+
+    .carousel-caption { position: absolute; z-index: 4; right: 66px; bottom: 17px; left: 66px; color: #fff; font-size: .85rem; text-align: center; text-shadow: 0 2px 12px rgba(0, 0, 0, .7); }
+    .carousel-nav { position: absolute; z-index: 6; top: 50%; display: grid; width: 45px; height: 45px; place-items: center; border: 1px solid rgba(255, 255, 255, .35); border-radius: 50%; color: #fff; cursor: pointer; font-size: 1.55rem; line-height: 1; background: rgba(9, 10, 18, .56); backdrop-filter: blur(8px); box-shadow: 0 7px 18px rgba(0, 0, 0, .3); transform: translateY(-50%); transition: transform .2s ease, background .2s ease; }
+    .carousel-nav:hover { background: rgba(143, 20, 61, .82); transform: translateY(-50%) scale(1.08); }
+    .carousel-nav:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    .carousel-nav.prev { left: 13px; }
+    .carousel-nav.next { right: 13px; }
+    .dots { display: flex; justify-content: center; gap: 8px; padding: 15px; }
+    .dot { width: 7px; height: 7px; padding: 0; border: 0; border-radius: 99px; cursor: pointer; background: rgba(255, 255, 255, .3); transition: .25s; }
+    .dot.active { width: 24px; background: var(--rose); }
+
+    .friendship-card { text-align: center; }
+    .quote { margin: 0; color: #fff7fa; font-family: "Playfair Display", Georgia, serif; font-size: clamp(1.35rem, 4vw, 2rem); line-height: 1.35; }
+    .quote + .quote { margin-top: 28px; color: var(--blush); }
+    .coupon-intro { max-width: 560px; margin: 0 auto 26px; color: var(--muted); font-size: .92rem; line-height: 1.7; text-align: center; }
+    .coupons { display: grid; gap: 24px; }
+    .coupon { position: relative; display: grid; min-height: 190px; grid-template-columns: minmax(92px, 27%) 1fr; isolation: isolate; cursor: pointer; filter: drop-shadow(0 18px 24px rgba(0, 0, 0, .31)); transition: transform .25s ease, filter .25s ease; }
+    .coupon:hover { filter: drop-shadow(0 25px 30px rgba(0, 0, 0, .4)); transform: translateY(-5px) rotate(-.2deg); }
+    .coupon:focus-visible { outline: 2px solid var(--gold); outline-offset: 6px; }
+    .coupon-stub { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 18px 0 0 18px; color: #fff; background: linear-gradient(155deg, #a81747, #650b2d); }
+    .coupon-stub::after { content: ""; position: absolute; top: 0; right: -11px; bottom: 0; width: 22px; background: radial-gradient(circle at 0 11px, transparent 10px, var(--paper) 10.7px) 0 0 / 22px 22px repeat-y; }
+    .stub-copy { z-index: 1; white-space: nowrap; font-size: .67rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; transform: rotate(-90deg); }
+    .coupon-body { position: relative; display: flex; flex-direction: column; justify-content: center; overflow: hidden; padding: 22px 26px 22px 36px; border-radius: 0 18px 18px 0; color: #68102f; background: var(--paper); }
+    .coupon-body::before, .coupon-body::after { content: ""; position: absolute; left: 0; right: 0; height: 11px; opacity: .75; background: radial-gradient(circle at 11px 0, transparent 10px, var(--ink) 10.7px) 0 0 / 22px 22px repeat-x; }
+    .coupon-body::before { top: 0; transform: translateY(-10px); }
+    .coupon-body::after { bottom: 0; transform: rotate(180deg) translateY(-10px); }
+    .coupon-body > * { position: relative; z-index: 1; }
+    .coupon-kicker { margin: 0 0 8px; color: #9d3554; font-size: .68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
+    .coupon-title { margin: 0; font-family: "Playfair Display", Georgia, serif; font-size: clamp(1.35rem, 4.2vw, 2rem); line-height: 1.04; }
+    .coupon-meta { margin: 10px 0 0; color: #8c5870; font-size: .73rem; }
+    .coupon-star { position: absolute; top: 18px; right: 23px; color: var(--wine); font-size: 1.7rem; }
+    .coupon-reveal { position: absolute; z-index: 5; inset: 0; display: grid; place-items: center; padding: 28px; border-radius: 18px; color: #fff; opacity: 0; pointer-events: none; text-align: center; background: linear-gradient(135deg, rgba(92, 9, 39, .98), rgba(160, 22, 67, .96)); transform: scale(.96); transition: opacity .36s ease, transform .36s ease; }
+    .coupon.open .coupon-reveal { opacity: 1; pointer-events: auto; transform: scale(1); }
+    .coupon-reveal p { margin: 0; font-family: "Playfair Display", Georgia, serif; font-size: clamp(1.2rem, 4.4vw, 1.75rem); line-height: 1.3; }
+    .coupon-reveal small { display: block; margin-top: 10px; color: #ffd7e1; font-family: "Poppins", sans-serif; font-size: .73rem; }
+    .end-note { margin: 56px 0 0; color: var(--muted); font-size: .78rem; text-align: center; }
+
+    .music-widget { position: fixed; z-index: 30; right: 18px; bottom: 18px; }
+    .music-button { display: grid; width: 54px; height: 54px; place-items: center; border: 1px solid rgba(255, 255, 255, .28); border-radius: 50%; color: #fff; cursor: pointer; font-size: 1.28rem; background: linear-gradient(135deg, #a81747, #e8658c); box-shadow: 0 10px 25px rgba(0, 0, 0, .38), 0 0 0 0 rgba(239, 111, 152, .45); transition: transform .2s ease, filter .2s ease; }
+    .music-button:hover { filter: brightness(1.1); transform: scale(1.06); }
+    .music-button.playing { animation: musicPulse 1.8s infinite; }
+    .music-button:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+    @keyframes musicPulse { 0%, 100% { box-shadow: 0 10px 25px rgba(0, 0, 0, .38), 0 0 0 0 rgba(239, 111, 152, .45); } 50% { box-shadow: 0 10px 25px rgba(0, 0, 0, .38), 0 0 0 10px rgba(239, 111, 152, 0); } }
+
+    @media (max-width: 420px) {
+      .coupon { min-height: 174px; grid-template-columns: 82px 1fr; }
+      .coupon-body { padding: 20px 18px 20px 28px; }
+      .coupon-star { top: 16px; right: 16px; }
+      .carousel-nav { width: 38px; height: 38px; font-size: 1.3rem; }
+      .carousel-nav.prev { left: 9px; }
+      .carousel-nav.next { right: 9px; }
+      .carousel-caption { right: 52px; left: 52px; font-size: .75rem; }
+      .slide { min-height: 250px; }
+      .slide img { min-height: 250px; }
+      .slide video, .video-frame { max-height: 62vh; }
+      .video-play-overlay { width: 62px; height: 62px; font-size: 1.55rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient"></div>
+  <div class="stars" id="stars" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <audio id="backgroundMusic" loop preload="auto">
+    <source src="Sola_Remix.MP3" type="audio/mpeg" />
+    Tu navegador no puede reproducir este audio.
+  </audio>
+
+  <div class="music-widget" aria-label="Controles de música">
+    <button class="music-button" id="musicButton" type="button" aria-label="Reproducir música" aria-pressed="false">▶</button>
+  </div>
+
+  <section class="intro" id="intro">
+    <div class="intro-card">
+      <p class="eyebrow">De Delismer para Denisse</p>
+      <h1>Te preparé algo bonito.<br />Ábrelo cuando tengas un momento <span>🤍</span></h1>
+      <div class="gift-wrap">
+        <div class="gift-emoji joggle" id="giftEmoji" aria-hidden="true">🎁</div><br />
+        <button class="open-btn" id="openGift" type="button">Abrir mi regalo</button>
+        <p class="claimed-message" id="claimedMessage">¡Feliz cumpleaños, princesa! ✨</p>
+      </div>
+    </div>
+  </section>
+
+  <main id="main" class="hidden">
+    <header class="hero-note">
+      <p class="eyebrow">Un detalle para ti</p>
+      <h2 class="name">Para Denisse</h2>
+      <p class="from">Con mucho cariño, Delismer</p>
+    </header>
+
+    <article class="letter">
+      <p>Ok, para dar inicio a este mensaje de cumpleaños, no tengo idea de cómo empezar, solo sé que deseo para ti prosperidad y abundante felicidad. Haciendo un recuento de lo que desde el 2016 hemos vivido, ha sido único; como siempre con nuestras story time, momentos únicos que los viviría mil veces más, excepto cuando te molestaste conmigo.</p>
+      <p>Hoy te digo gracias por estar, por aceptar cada etapa de mí, por escucharme y apoyarme siempre. Por permitirme formar parte de tu círculo de vida. Por tomar un cafecito, un vinito, una Solera verde, ir por un Mykonos o una cocada. Larga vida para ti; eres increíble, bella y muy inteligente.</p>
+      <p>Obviamente las manualidades no se me dan como a ti, así que no hay nada hecho a mano. Te amo, princesa. No dudes jamás de lo que puedes lograr; recuerda que estaré para ti.</p>
+      <p>Aquí encontrarás uno que otro recuerdo que hemos vivido, y revivir cada uno de estos momentos sin duda es reír. Gracias, mi niña.</p>
+    </article>
+
+    <section aria-labelledby="memories-title">
+      <h2 class="section-title" id="memories-title">Nuestros recuerdos</h2>
+
+      <div class="carousel" id="carousel" aria-label="Carrusel de recuerdos">
+        <div class="carousel-track" id="carouselTrack">
+          <div class="slide"><img src="img/foto_1.jpeg" alt="Recuerdo 1 de Denisse y Delismer" /><span class="carousel-caption">Un recuerdo para volver a sonreír ✨</span></div>
+          <div class="slide"><img src="img/foto_2.jpeg" alt="Recuerdo 2 de Denisse y Delismer" /><span class="carousel-caption">Momentos que viviría mil veces más 🤍</span></div>
+          <div class="slide"><img src="img/foto_3.jpeg" alt="Recuerdo 3 de Denisse y Delismer" /><span class="carousel-caption">Nuestras mejores story time</span></div>
+          <div class="slide"><img src="img/foto_4.jpeg" alt="Recuerdo 4 de Denisse y Delismer" /><span class="carousel-caption">Por más risas y aventuras juntas</span></div>
+          <div class="slide"><img src="img/foto_5.jpeg" alt="Recuerdo 5 de Denisse y Delismer" /><span class="carousel-caption">Un cafecito, un vinito y muchas anécdotas ☕</span></div>
+
+          <!-- VIDEO 1: conserva su tamaño/proporción original, no se recorta ni se estira -->
+          <div class="slide video-slide">
+            <div class="video-frame">
+              <video playsinline preload="metadata" poster="img/foto_6.jpeg">
+                <source src="img/video_1.mp4" type="video/mp4" />
+                Tu navegador no puede reproducir este video.
+              </video>
+              <button class="video-play-overlay" type="button" aria-label="Reproducir video 1">▶</button>
+            </div>
+            <span class="carousel-caption">Un momento para recordar siempre 🎬</span>
+          </div>
+
+          <div class="slide"><img src="img/foto_6.jpeg" alt="Recuerdo 6 de Denisse y Delismer" /><span class="carousel-caption">Larga vida para ti, princesa ✨</span></div>
+          <div class="slide"><img src="img/foto_7.jpeg" alt="Recuerdo 7 de Denisse y Delismer" /><span class="carousel-caption">Porque contigo todo se vuelve especial</span></div>
+          <div class="slide"><img src="img/foto_8.jpeg" alt="Recuerdo 8 de Denisse y Delismer" /><span class="carousel-caption">Desde 2016 y para siempre</span></div>
+          <div class="slide"><img src="img/foto_9.jpeg" alt="Recuerdo 9 de Denisse y Delismer" /><span class="carousel-caption">Más momentos únicos por vivir 🥂</span></div>
+          <div class="slide"><img src="img/foto_10.jpeg" alt="Recuerdo 10 de Denisse y Delismer" /><span class="carousel-caption">Gracias por ser mi niña 🤍</span></div>
+
+          <!-- VIDEO 2: conserva su tamaño/proporción original, no se recorta ni se estira -->
+          <div class="slide video-slide">
+            <div class="video-frame">
+              <video playsinline preload="metadata" poster="img/foto_10.jpeg">
+                <source src="img/video_2.mp4" type="video/mp4" />
+                Tu navegador no puede reproducir este video.
+              </video>
+              <button class="video-play-overlay" type="button" aria-label="Reproducir video 2">▶</button>
+            </div>
+            <span class="carousel-caption">Para seguir sumando historias juntas ✨</span>
+          </div>
+        </div>
+
+        <button class="carousel-nav prev" id="prevSlide" type="button" aria-label="Ver recuerdo anterior">‹</button>
+        <button class="carousel-nav next" id="nextSlide" type="button" aria-label="Ver siguiente recuerdo">›</button>
+        <div class="dots" id="dots" aria-label="Navegación del carrusel"></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="friendship-title">
+      <h2 class="section-title" id="friendship-title">Tu amistad</h2>
+      <div class="friendship-card">
+        <p class="quote">“Tu amistad es uno de los regalos más bonitos que la vida me ha dado.”</p>
+        <p class="quote">“Si la amistad fuera una competencia, tendríamos el récord mundial de risas compartidas y aventuras sin fin.”</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="coupons-title">
+      <h2 class="section-title" id="coupons-title">Cupones para ti</h2>
+      <p class="coupon-intro">Toca un cupón para descubrirlo. Son válidos siempre, porque una amistad como esta no tiene fecha de vencimiento.</p>
+      <div class="coupons">
+        <article class="coupon" tabindex="0" role="button" aria-label="Abrir cupón: amigas para toda la vida" data-message="Este cupón no vence nunca. Es válido para todas las etapas, risas, historias y aventuras que nos quedan por vivir.">
+          <div class="coupon-stub"><span class="stub-copy">Delismer · Denisse</span></div>
+          <div class="coupon-body"><span class="coupon-star">★</span><p class="coupon-kicker">Cupón especial · #01</p><h3 class="coupon-title">Válido para ser amigas<br />para toda la vida</h3><p class="coupon-meta">Canjeable cuando quieras · Sin fecha de vencimiento</p></div>
+          <div class="coupon-reveal"><div><p></p><small>Toca de nuevo para cerrar</small></div></div>
+        </article>
+        <article class="coupon" tabindex="0" role="button" aria-label="Abrir cupón: ir por un vinito" data-message="Canjeable por una salida, una copa, muchas conversaciones y un brindis por nosotras. 🥂">
+          <div class="coupon-stub"><span class="stub-copy">Delismer · Denisse</span></div>
+          <div class="coupon-body"><span class="coupon-star">★</span><p class="coupon-kicker">Cupón especial · #02</p><h3 class="coupon-title">Válido para ir<br />por un vinito</h3><p class="coupon-meta">Canjeable cuando quieras · Incluye risas</p></div>
+          <div class="coupon-reveal"><div><p></p><small>Toca de nuevo para cerrar</small></div></div>
+        </article>
+        <article class="coupon" tabindex="0" role="button" aria-label="Abrir cupón: un abrazo" data-message="Válido por un abrazo de esos que arreglan el día, cada vez que lo necesites. 🤍">
+          <div class="coupon-stub"><span class="stub-copy">Delismer · Denisse</span></div>
+          <div class="coupon-body"><span class="coupon-star">★</span><p class="coupon-kicker">Cupón especial · #03</p><h3 class="coupon-title">Válido para un abrazo<br />cada vez que lo necesites</h3><p class="coupon-meta">Canjeable siempre · Sin condiciones</p></div>
+          <div class="coupon-reveal"><div><p></p><small>Toca de nuevo para cerrar</small></div></div>
+        </article>
+      </div>
+    </section>
+
+    <p class="end-note">Hecho con amor para una persona muy especial ✨</p>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script>
+    const stars = document.getElementById('stars');
+    for (let i = 0; i < 34; i++) {
+      const star = document.createElement('i');
+      star.className = 'star';
+      star.style.setProperty('--size', (Math.random() * 3.6 + 1.4).toFixed(1) + 'px');
+      star.style.setProperty('--duration', (12 + Math.random() * 15).toFixed(1) + 's');
+      star.style.setProperty('--delay', (-Math.random() * 20).toFixed(1) + 's');
+      star.style.setProperty('--drift', ((Math.random() - .5) * 180).toFixed(0) + 'px');
+      star.style.setProperty('--opacity', (.25 + Math.random() * .58).toFixed(2));
+      star.style.left = (Math.random() * 100).toFixed(2) + '%';
+      stars.appendChild(star);
+    }
+
+    const intro = document.getElementById('intro');
+    const main = document.getElementById('main');
+    const giftEmoji = document.getElementById('giftEmoji');
+    const openGift = document.getElementById('openGift');
+    const claimedMessage = document.getElementById('claimedMessage');
+    const music = document.getElementById('backgroundMusic');
+    const musicButton = document.getElementById('musicButton');
+    let musicPlaying = false;
+    let musicPausedByVideo = false;
+
+    function updateMusicButton() {
+      musicButton.textContent = musicPlaying ? '❚❚' : '▶';
+      musicButton.setAttribute('aria-label', musicPlaying ? 'Pausar música' : 'Reproducir música');
+      musicButton.setAttribute('aria-pressed', String(musicPlaying));
+      musicButton.classList.toggle('playing', musicPlaying);
+    }
+
+    async function playMusic() {
+      try {
+        await music.play();
+        musicPlaying = true;
+        updateMusicButton();
+      } catch (error) {
+        musicPlaying = false;
+        updateMusicButton();
+        console.warn('No se pudo reproducir la música:', error);
+      }
+    }
+
+    function pauseMusic() {
+      music.pause();
+      musicPlaying = false;
+      updateMusicButton();
+    }
+
+    musicButton.addEventListener('click', () => {
+      musicPausedByVideo = false;
+      if (music.paused) playMusic();
+      else pauseMusic();
+    });
+
+    music.addEventListener('play', () => { musicPlaying = true; updateMusicButton(); });
+    music.addEventListener('pause', () => { musicPlaying = false; updateMusicButton(); });
+
+    openGift.addEventListener('click', () => {
+      openGift.disabled = true;
+      giftEmoji.classList.remove('joggle');
+      void giftEmoji.offsetWidth;
+      giftEmoji.classList.add('claimed');
+      openGift.hidden = true;
+      playMusic();
+
+      if (window.confetti) {
+        confetti({ particleCount: 190, spread: 105, startVelocity: 35, origin: { y: .42 }, colors: ['#ffffff', '#ef6f98', '#ffd8e4', '#d9b46e', '#8f143d'] });
+      }
+
+      setTimeout(() => claimedMessage.classList.add('visible'), 340);
+      setTimeout(() => {
+        intro.classList.add('is-leaving');
+        setTimeout(() => {
+          intro.classList.add('hidden');
+          main.classList.remove('hidden');
+          requestAnimationFrame(() => main.classList.add('visible'));
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 700);
+      }, 1700);
+    });
+
+    const carousel = document.getElementById('carousel');
+    const track = document.getElementById('carouselTrack');
+    const slides = [...track.children];
+    const dots = document.getElementById('dots');
+    const prevSlideButton = document.getElementById('prevSlide');
+    const nextSlideButton = document.getElementById('nextSlide');
+    const videos = [...document.querySelectorAll('.slide video')];
+    let index = 0;
+    let autoplay;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `Ver recuerdo ${i + 1}`);
+      dot.addEventListener('click', () => { goTo(i); restartAutoplay(); });
+      dots.appendChild(dot);
+    });
+
+    function showVideoOverlay(video) {
+      const overlay = video.parentElement.querySelector('.video-play-overlay');
+      if (overlay) overlay.classList.remove('is-hidden');
+    }
+
+    function hideVideoOverlay(video) {
+      const overlay = video.parentElement.querySelector('.video-play-overlay');
+      if (overlay) overlay.classList.add('is-hidden');
+    }
+
+    function pauseAllVideos() {
+      videos.forEach(video => {
+        if (!video.paused) video.pause();
+        showVideoOverlay(video);
+      });
+    }
+
+    function goTo(next) {
+      pauseAllVideos();
+      index = (next + slides.length) % slides.length;
+      track.style.transform = `translateX(-${index * 100}%)`;
+      [...dots.children].forEach((dot, i) => dot.classList.toggle('active', i === index));
+    }
+
+    function nextSlide() {
+      const currentVideo = slides[index].querySelector('video');
+      if (currentVideo && !currentVideo.paused && !currentVideo.ended) return;
+      goTo(index + 1);
+    }
+
+    function startAutoplay() {
+      clearInterval(autoplay);
+      autoplay = setInterval(nextSlide, 4000);
+    }
+
+    function restartAutoplay() { startAutoplay(); }
+
+    prevSlideButton.addEventListener('click', () => { goTo(index - 1); restartAutoplay(); });
+    nextSlideButton.addEventListener('click', () => { nextSlide(); restartAutoplay(); });
+
+    startAutoplay();
+
+    carousel.addEventListener('mouseenter', () => clearInterval(autoplay));
+    carousel.addEventListener('mouseleave', () => {
+      const currentVideo = slides[index].querySelector('video');
+      if (!currentVideo || currentVideo.paused || currentVideo.ended) startAutoplay();
+    });
+
+    document.querySelectorAll('.video-play-overlay').forEach(button => {
+      const video = button.parentElement.querySelector('video');
+      button.addEventListener('click', () => video.play());
+    });
+
+    videos.forEach(video => {
+      video.addEventListener('click', () => {
+        if (video.paused) video.play();
+        else video.pause();
+      });
+
+      video.addEventListener('play', () => {
+        clearInterval(autoplay);
+        hideVideoOverlay(video);
+        musicPausedByVideo = !music.paused;
+        if (musicPausedByVideo) pauseMusic();
+      });
+
+      video.addEventListener('pause', () => {
+        showVideoOverlay(video);
+        if (!video.ended && musicPausedByVideo) {
+          playMusic();
+          musicPausedByVideo = false;
+        }
+        if (!video.ended) startAutoplay();
+      });
+
+      video.addEventListener('ended', () => {
+        showVideoOverlay(video);
+        if (musicPausedByVideo) {
+          playMusic();
+          musicPausedByVideo = false;
+        }
+        goTo(index + 1);
+        startAutoplay();
+      });
+    });
+
+    document.querySelectorAll('.coupon').forEach(coupon => {
+      const revealText = coupon.querySelector('.coupon-reveal p');
+      revealText.textContent = coupon.dataset.message;
+      const toggleCoupon = () => coupon.classList.toggle('open');
+      coupon.addEventListener('click', toggleCoupon);
+      coupon.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          toggleCoupon();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
